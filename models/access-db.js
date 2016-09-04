@@ -5,7 +5,7 @@ function insertTH(req, res) {
         humi: req.query.humi,
     });
 
-    data.save().catch((err) => { console.log(err) });
+    data.save().then((result) => { res.send('success') }).catch((err) => { console.log(err) });
 }
 
 exports.insertTH = insertTH;
