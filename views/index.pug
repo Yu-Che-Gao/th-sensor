@@ -1,6 +1,11 @@
 html
   head
-    title #{title}
+    meta(charset='utf-8')
+    title dashboard
   body
-    p
-      | #{content}
+    #result
+    script(src='/js/xhr.js')
+    script.
+      sendXhrReqeust('/selectTH', '', 'GET', function(result){
+      document.getElementById('result').innerHTML=result;
+      });

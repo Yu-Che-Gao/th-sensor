@@ -11,7 +11,7 @@ app.use((req, res, next) => {
     res.header("Access-Control-Allow-Headers", "X-Requested-With");
     next();
 })
-
+app.use(express.static(__dirname + '/public'))
 app.set('view engine', 'pug');
 
 mongoose.connect(mongodbUri);
