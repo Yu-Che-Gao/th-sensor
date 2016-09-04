@@ -1,81 +1,159 @@
-var data = [{
-    "sale": "202",
-    "year": "2000"
-}, {
-        "sale": "215",
-        "year": "2002"
-    }, {
-        "sale": "179",
-        "year": "2004"
-    }, {
-        "sale": "199",
-        "year": "2006"
-    }, {
-        "sale": "134",
-        "year": "2008"
-    }, {
-        "sale": "176",
-        "year": "2010"
-    }];
-var data2 = [{
-    "sale": "152",
-    "year": "2000"
-}, {
-        "sale": "189",
-        "year": "2002"
-    }, {
-        "sale": "179",
-        "year": "2004"
-    }, {
-        "sale": "199",
-        "year": "2006"
-    }, {
-        "sale": "134",
-        "year": "2008"
-    }, {
-        "sale": "176",
-        "year": "2010"
-    }];
-var vis = d3.select("#tempChart"),
-    WIDTH = 1000,
-    HEIGHT = 500,
-    MARGINS = {
-        top: 20,
-        right: 20,
-        bottom: 20,
-        left: 50
-    },
-    xScale = d3.scale.linear().range([MARGINS.left, WIDTH - MARGINS.right]).domain([2000, 2010]),
-    yScale = d3.scale.linear().range([HEIGHT - MARGINS.top, MARGINS.bottom]).domain([134, 215]),
-    xAxis = d3.svg.axis()
-        .scale(xScale),
-    yAxis = d3.svg.axis()
-        .scale(yScale)
-        .orient("left");
 
-vis.append("svg:g")
-    .attr("class", "x axis")
-    .attr("transform", "translate(0," + (HEIGHT - MARGINS.bottom) + ")")
-    .call(xAxis);
-vis.append("svg:g")
-    .attr("class", "y axis")
-    .attr("transform", "translate(" + (MARGINS.left) + ",0)")
-    .call(yAxis);
-var lineGen = d3.svg.line()
+var data = [
+
+    { x: 0, y: 50 },
+
+    { x: 1, y: 20 },
+
+    { x: 2, y: 40 },
+
+    { x: 3, y: 60 },
+
+    { x: 4, y: 50 },
+
+    { x: 5, y: 90 },
+
+    { x: 6, y: 80 },
+
+    { x: 7, y: 70 },
+
+    { x: 8, y: 90 },
+
+    { x: 9, y: 30 }
+
+];
+
+
+
+var width = 360,
+
+    height = 240;
+
+var scaleX = d3.scale.linear()
+
+    .range([0, width])
+
+    .domain([0, 9]); //x資料的範圍
+
+var scaleY = d3.scale.linear()
+
+    .range([height, 0])
+
+    .domain([0, 100]); //Y的資料範圍
+
+
+
+var s = d3.select('#tempChart'); //取得SVG的物件
+
+s.attr({
+
+    'width': 450, //設定畫布範圍
+
+    'height': 380,
+
+})
+
+    .style({
+
+        'border': '1px dotted #aaa'
+
+    });
+
+
+var line = d3.svg.line()
+
     .x(function (d) {
-        return xScale(d.year);
+
+        return scaleX(d.x);
+
+    }).y(function (d) {
+
+        return scaleY(d.y);
+
+    });
+
+var axisX = d3.svg.axis()
+
+    .scale(scaleX)
+
+    .ticks(10) //刻度大小
+
+    .orient("bottom"); //X軸數字的位置
+
+var axisY = d3.svg.axis()
+
+    .scale(scaleY)
+
+    .ticks(10) //刻度大小
+
+    .orient("left"); //Y軸數字的位置
+
+s.append('path')
+
+    .attr({
+
+        'd': line(data),
+
+        'stroke': '#09c',
+
+        'fill': 'none',
+
+        'transform': 'translate(35,20)' //偏移
+
+    });
+
+s.append('g')
+
+    .call(axisX)
+
+    .attr({
+
+        'fill': 'none', //空心，但是字要另外處理
+
+        'stroke': '#000',
+
+        'transform': 'translate(35,' + (height + 20) + ')' //偏移
+
     })
-    .y(function (d) {
-        return yScale(d.sale);
+
+    .selectAll('text') //字也會套用空心，另外處理
+
+    .attr({
+
+        'fill': '#000',
+
+        'stroke': 'none',
+
+    }).style({
+
+        'font-size': '11px'
+
+    });
+
+s.append('g')
+
+    .call(axisY)
+
+    .attr({
+
+        'fill': 'none',
+
+        'stroke': '#000',
+
+        'transform': 'translate(35,20)'
+
     })
-    .interpolate("basis");
-vis.append('svg:path')
-    .attr('d', lineGen(data))
-    .attr('stroke', 'green')
-    .attr('stroke-width', 2)
-    .attr('fill', 'none');
-vis.append('svg:path')
-    .attr('d', lineGen(data2))
-    .attr('stroke', 'blue')
-    .attr('stroke-width', 2)
-    .attr('fill', 'none');
+
+    .selectAll('text')
+
+    .attr({
+
+        'fill': '#000',
+
+        'stroke': 'none',
+
+    }).style({
+
+        'font-size': '11px'
+
+    });
