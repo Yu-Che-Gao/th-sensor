@@ -21,7 +21,7 @@ var line = d3.line()
 
 context.translate(margin.left, margin.top);
 
-d3.requestTsv("data.tsv", function(d) {
+d3.requestTsv("/data/data.tsv", function(d) {
   d.date = parseTime(d.date);
   d.close = +d.close;
   return d;
