@@ -11,6 +11,9 @@ app.use((req, res, next) => {
     res.header("Access-Control-Allow-Headers", "X-Requested-With");
     next();
 })
+
+app.set('view engine', 'pug');
+
 mongoose.connect(mongodbUri);
 app.use(require('./controllers'));
 app.listen(port, () => { console.log('now listening on port ' + port); })
