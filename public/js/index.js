@@ -1,101 +1,81 @@
-var canvas = document.querySelector("canvas"),
-    context = canvas.getContext("2d");
+var data = [{
+    "sale": "202",
+    "year": "2000"
+}, {
+        "sale": "215",
+        "year": "2002"
+    }, {
+        "sale": "179",
+        "year": "2004"
+    }, {
+        "sale": "199",
+        "year": "2006"
+    }, {
+        "sale": "134",
+        "year": "2008"
+    }, {
+        "sale": "176",
+        "year": "2010"
+    }];
+var data2 = [{
+    "sale": "152",
+    "year": "2000"
+}, {
+        "sale": "189",
+        "year": "2002"
+    }, {
+        "sale": "179",
+        "year": "2004"
+    }, {
+        "sale": "199",
+        "year": "2006"
+    }, {
+        "sale": "134",
+        "year": "2008"
+    }, {
+        "sale": "176",
+        "year": "2010"
+    }];
+var vis = d3.select("#tempChart"),
+    WIDTH = 1000,
+    HEIGHT = 500,
+    MARGINS = {
+        top: 20,
+        right: 20,
+        bottom: 20,
+        left: 50
+    },
+    xScale = d3.scale.linear().range([MARGINS.left, WIDTH - MARGINS.right]).domain([2000, 2010]),
+    yScale = d3.scale.linear().range([HEIGHT - MARGINS.top, MARGINS.bottom]).domain([134, 215]),
+    xAxis = d3.svg.axis()
+        .scale(xScale),
+    yAxis = d3.svg.axis()
+        .scale(yScale)
+        .orient("left");
 
-var margin = {top: 20, right: 20, bottom: 30, left: 50},
-    width = canvas.width - margin.left - margin.right,
-    height = canvas.height - margin.top - margin.bottom;
-
-var parseTime = d3.timeParse("%d-%b-%y");
-
-var x = d3.scaleTime()
-    .range([0, width]);
-
-var y = d3.scaleLinear()
-    .range([height, 0]);
-
-var line = d3.line()
-    .x(function(d) { return x(d.date); })
-    .y(function(d) { return y(d.close); })
-    .curve(d3.curveStep)
-    .context(context);
-
-context.translate(margin.left, margin.top);
-
-d3.requestTsv("/data/data.tsv", function(d) {
-  d.date = parseTime(d.date);
-  d.close = +d.close;
-  return d;
-}, function(error, data) {
-  if (error) throw error;
-
-  x.domain(d3.extent(data, function(d) { return d.date; }));
-  y.domain(d3.extent(data, function(d) { return d.close; }));
-
-  xAxis();
-  yAxis();
-
-  context.beginPath();
-  line(data);
-  context.lineWidth = 1.5;
-  context.strokeStyle = "steelblue";
-  context.stroke();
-});
-
-function xAxis() {
-  var tickCount = 10,
-      tickSize = 6,
-      ticks = x.ticks(tickCount),
-      tickFormat = x.tickFormat();
-
-  context.beginPath();
-  ticks.forEach(function(d) {
-    context.moveTo(x(d), height);
-    context.lineTo(x(d), height + tickSize);
-  });
-  context.strokeStyle = "black";
-  context.stroke();
-
-  context.textAlign = "center";
-  context.textBaseline = "top";
-  ticks.forEach(function(d) {
-    context.fillText(tickFormat(d), x(d), height + tickSize);
-  });
-}
-
-function yAxis() {
-  var tickCount = 10,
-      tickSize = 6,
-      tickPadding = 3,
-      ticks = y.ticks(tickCount),
-      tickFormat = y.tickFormat(tickCount);
-
-  context.beginPath();
-  ticks.forEach(function(d) {
-    context.moveTo(0, y(d));
-    context.lineTo(-6, y(d));
-  });
-  context.strokeStyle = "black";
-  context.stroke();
-
-  context.beginPath();
-  context.moveTo(-tickSize, 0);
-  context.lineTo(0.5, 0);
-  context.lineTo(0.5, height);
-  context.lineTo(-tickSize, height);
-  context.strokeStyle = "black";
-  context.stroke();
-
-  context.textAlign = "right";
-  context.textBaseline = "middle";
-  ticks.forEach(function(d) {
-    context.fillText(tickFormat(d), -tickSize - tickPadding, y(d));
-  });
-
-  context.save();
-  context.rotate(-Math.PI / 2);
-  context.textAlign = "right";
-  context.textBaseline = "top";
-  context.font = "bold 10px sans-serif";
-  context.fillText("Price (US$)", -10, 10);
-  context.restore();
-}
+vis.append("svg:g")
+    .attr("class", "x axis")
+    .attr("transform", "translate(0," + (HEIGHT - MARGINS.bottom) + ")")
+    .call(xAxis);
+vis.append("svg:g")
+    .attr("class", "y axis")
+    .attr("transform", "translate(" + (MARGINS.left) + ",0)")
+    .call(yAxis);
+var lineGen = d3.svg.line()
+    .x(function (d) {
+        return xScale(d.year);
+    })
+    .y(function (d) {
+        return yScale(d.sale);
+    })
+    .interpolate("basis");
+vis.append('svg:path')
+    .attr('d', lineGen(data))
+    .attr('stroke', 'green')
+    .attr('stroke-width', 2)
+    .attr('fill', 'none');
+vis.append('svg:path')
+    .attr('d', lineGen(data2))
+    .attr('stroke', 'blue')
+    .attr('stroke-width', 2)
+    .attr('fill', 'none');
