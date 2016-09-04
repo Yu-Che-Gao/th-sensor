@@ -1,4 +1,4 @@
-const thDbs = require('th-dbs.js');
+const thDbs = require('./th-dbs.js');
 function insertTH(req, res) {
     let data = new thDbs({
         temp: req.query.temp,
