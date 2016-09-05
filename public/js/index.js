@@ -6,10 +6,11 @@ function drawChart() {
         console.log(result);
         var json = JSON.parse(result);
         var rawData = [];
+        rawData[0] = ['Time', 'Temperature'];
         Object.keys(json).map(function (value, index) {
-            rawData[index] = [];
-            rawData[index][0] = json[index].insertTime;
-            rawData[index][1] = json[index].temp;
+            rawData[index + 1] = [];
+            rawData[index + 1][0] = json[index].insertTime;
+            rawData[index + 1][1] = json[index].temp;
         });
 
         var data = google.visualization.arrayToDataTable(rawData);
