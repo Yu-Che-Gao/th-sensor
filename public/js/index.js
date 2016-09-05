@@ -7,9 +7,9 @@ function drawChart() {
         var json = JSON.parse(result);
         var rawData = [];
         Object.keys(json).map(function (value, index) {
-            console.log(json[index].insertTime);
-            // rawData[index][0] = json[index].insertTime;
-            // rawData[index][1] = json[index].temp;
+            rawData[index] = [];
+            rawData[index][0] = json[index].insertTime;
+            rawData[index][1] = json[index].temp;
         });
 
         var data = google.visualization.arrayToDataTable(rawData);
