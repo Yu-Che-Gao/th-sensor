@@ -28,6 +28,7 @@ function drawChart() {
 
 function getFinalData() {
     sendXhrRequest('/selectTH', 'insertTime=final', 'POST', function (result) {
+        console.log(result);
         var json = JSON.parse(result);
         var temp = json.temp;
         var humi = json.humi;
