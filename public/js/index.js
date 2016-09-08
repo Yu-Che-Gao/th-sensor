@@ -35,6 +35,6 @@ function getFinalData() {
         var finalTime = json[0].insertTime;
         document.getElementById('temp').innerHTML = temp;
         document.getElementById('humi').innerHTML = humi;
-        document.getElementById('finalTime').innerHTML = finalTime;
+        document.getElementById('finalTime').innerHTML = finalTime.replace(/T|Z/gi, ' ');
     });
 }
