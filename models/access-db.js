@@ -1,8 +1,10 @@
 const thDbs = require('./th-dbs.js');
+const timeZone = require('./time-zone.js');
 function insertTH(req, res) {
     let data = new thDbs({
         temp: req.body.temp,
         humi: req.body.humi,
+        insertTime: timeZone.DateTimezone(8)
     });
 
     data.save().then((result) => {
