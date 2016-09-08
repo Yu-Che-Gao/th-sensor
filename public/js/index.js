@@ -22,6 +22,8 @@ function drawChart() {
         var chart = new google.visualization.LineChart(document.getElementById('tempChart'));
         chart.draw(data, options);
     });
+
+    setTimeout(getFinalData, 1000);
 }
 
 function getFinalData() {
