@@ -39,9 +39,15 @@ html(lang='en')
             p
               | This is an alpha version for TH-Sensor
             hr
-      h2.col-md-4.col-sm-12 最後更新溫度:
-      h2.col-md-4.col-sm-12 最後更新濕度:
-      h2.col-md-4.col-sm-12 最後更新時間:
+      h2.col-md-4.col-sm-12 
+        | 最後更新溫度:
+        #temp
+      h2.col-md-4.col-sm-12 
+        | 最後更新濕度:
+        #humi
+      h2.col-md-4.col-sm-12 
+        | 最後更新時間:
+        #finalTime
       .col-md-12(id='tempChart', style="width:100%; height:700px;")
       
       footer

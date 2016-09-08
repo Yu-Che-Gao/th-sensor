@@ -3,7 +3,6 @@ google.charts.setOnLoadCallback(drawChart);
 
 function drawChart() {
     sendXhrRequest('/selectTH', '', 'POST', function (result) {
-        console.log(result);
         var json = JSON.parse(result);
         var rawData = [];
         rawData[0] = ['Time', 'Temperature'];
@@ -22,5 +21,17 @@ function drawChart() {
 
         var chart = new google.visualization.LineChart(document.getElementById('tempChart'));
         chart.draw(data, options);
+    });
+}
+
+function getFinalData() {
+    sendXhrRequest('/selectTH', 'insertTime=final', 'POST', function (result) {
+        var json = JSON.parse(result);
+        var temp = json.temp;
+        var humi = json.humi;
+        var finalTime = json.insertTime;
+        document.getElementById('temp').innerHTML = temp;
+        document.getElementById('humi').innerHTML = humi;
+        document.getElementById('finalTime').innerHTML = finalTime;
     });
 }
