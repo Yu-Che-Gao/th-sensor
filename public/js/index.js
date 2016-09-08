@@ -23,7 +23,7 @@ function drawChart() {
         chart.draw(data, options);
     });
 
-    setTimeout(getFinalData, 1000);
+    setInterval(getFinalData, 1000);
 }
 
 function getFinalData() {
