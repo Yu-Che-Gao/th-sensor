@@ -30,9 +30,9 @@ function getFinalData() {
     sendXhrRequest('/selectTH', 'lowerTime=final', 'POST', function (result) {
         console.log(result);
         var json = JSON.parse(result);
-        var temp = json.temp;
-        var humi = json.humi;
-        var finalTime = json.insertTime;
+        var temp = json[0].temp;
+        var humi = json[0].humi;
+        var finalTime = json[0].insertTime;
         document.getElementById('temp').innerHTML = temp;
         document.getElementById('humi').innerHTML = humi;
         document.getElementById('finalTime').innerHTML = finalTime;
