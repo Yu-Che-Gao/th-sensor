@@ -21,7 +21,7 @@ function selectTH(req, res) {
         }).catch((err) => {
             res.send('error: ' + err);
         })
-    } else if (req.body.insertTime == 'final') {
+    } else if (req.body.lowerTime == 'final') {
         thDbs.find({}).sort({ insertTime: 'desc' }).limit(1).exec().then((result) => {
             res.send(JSON.stringify(result));
         }).catch((err) => {

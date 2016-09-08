@@ -27,7 +27,7 @@ function drawChart() {
 }
 
 function getFinalData() {
-    sendXhrRequest('/selectTH', 'insertTime=final', 'POST', function (result) {
+    sendXhrRequest('/selectTH', 'lowerTime=final', 'POST', function (result) {
         console.log(result);
         var json = JSON.parse(result);
         var temp = json.temp;
