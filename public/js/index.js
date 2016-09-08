@@ -28,7 +28,6 @@ function drawChart() {
 
 function getFinalData() {
     sendXhrRequest('/selectTH', 'lowerTime=final', 'POST', function (result) {
-        console.log(result);
         var json = JSON.parse(result);
         var temp = json[0].temp;
         var humi = json[0].humi;
