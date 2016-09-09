@@ -16,9 +16,7 @@ function drawChart() {
         var options = {
             title: '歷史溫度曲線圖',
             curveType: 'function',
-            legend: { position: 'bottom' },
-            width: 900,
-            height: 500
+            legend: { position: 'bottom' }
         };
 
         var chart = new google.visualization.LineChart(document.getElementById('tempChart'));
