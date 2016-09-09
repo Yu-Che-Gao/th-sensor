@@ -5,7 +5,7 @@ function drawChart() {
     sendXhrRequest('/selectTH', '', 'POST', function (result) {
         var json = JSON.parse(result);
         var rawData = [];
-        rawData[0] = ['Time', 'Temperature'];
+        rawData[0] = ['Time', 'Temperature', 'Humidity'];
         Object.keys(json).map(function (value, index) {
             rawData[index + 1] = [];
             rawData[index + 1][0] = json[index].insertTime;
