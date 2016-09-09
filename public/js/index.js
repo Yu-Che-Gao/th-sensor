@@ -10,11 +10,12 @@ function drawChart() {
             rawData[index + 1] = [];
             rawData[index + 1][0] = json[index].insertTime;
             rawData[index + 1][1] = json[index].temp;
+            rawData[index + 1][2] = json[index].humi;
         });
 
         var data = google.visualization.arrayToDataTable(rawData);
         var options = {
-            title: '歷史溫度曲線圖',
+            title: '歷史溫濕度曲線圖',
             curveType: 'function',
             legend: { position: 'bottom' }
         };
